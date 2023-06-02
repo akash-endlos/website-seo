@@ -1,44 +1,44 @@
 import { apiSlice } from "../apiSlice/api";
 import config from "../config/config";
 
-export const branchesApiSlice = apiSlice.injectEndpoints({
+export const websitePageApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    updateBranchById: builder.mutation({
+    // updateBranchById: builder.mutation({
+    //   query: (payload) => ({
+    //     url: `${config.api.url.updateBranch}?id=${payload.id}`,
+    //     method: "PUT",
+    //     body: payload.editedData,
+    //   }),
+    //   invalidatesTags: ['Branches'],
+    // }),
+    addPage: builder.mutation({
       query: (payload) => ({
-        url: `${config.api.url.updateBranch}?id=${payload.id}`,
-        method: "PUT",
-        body: payload.editedData,
-      }),
-      invalidatesTags: ['Branches'],
-    }),
-    addBranch: builder.mutation({
-      query: (payload) => ({
-        url: config.api.url.addBranch,
+        url: config.api.url.addPage,
         method: "POST",
         body: payload,
       }),
-      invalidatesTags: ['Branches'],
+      invalidatesTags: ['WebsitePage'],
     }),
-    getBranchesByIdFormat: builder.query({
+    getWebsiteByIdFormat: builder.query({
       query: (id) => ({
-        url: `${config.api.url.getBranchesById}?id=${id}`,
+        url: `${config.api.url.getWebsiteByIdFormat}?id=${id}&type=allheads`,
         method: "GET",
       }),
-      providesTags: ['Branches'],
+      providesTags: ['WebsitePage'],
     }),
-    deleteBranch: builder.mutation({
-      query: (id) => ({
-        url: `${config.api.url.deleteBranch}?id=${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ['Branches'],
-    }),
+    // deleteBranch: builder.mutation({
+    //   query: (id) => ({
+    //     url: `${config.api.url.deleteBranch}?id=${id}`,
+    //     method: "DELETE",
+    //   }),
+    //   invalidatesTags: ['Branches'],
+    // }),
   }),
 });
 
 export const {
-  useAddBranchMutation,
-  useGetBranchesByIdFormatQuery,
-  useDeleteBranchMutation,
-  useUpdateBranchByIdMutation,
-} = branchesApiSlice;
+  useAddPageMutation,
+  useGetWebsiteByIdFormatQuery,
+  // useDeleteBranchMutation,
+  // useUpdateBranchByIdMutation,
+} = websitePageApiSlice;

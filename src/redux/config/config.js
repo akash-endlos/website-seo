@@ -21,10 +21,15 @@ const config = {
             getInventoryTypeById:'inventrytype/get',
             addInventory:'inventry/add',
             getInventory:'inventry/get?type=all',
-            deleteInventory:'inventry/delete'
+            deleteInventory:'inventry/delete',
             // getUser:'Users',
             // categories: 'tutorial-categories',
             // tutorials: 'tutorials',
+            getWebsite:'website/get?type=all',
+            addWebsite:'website/add',
+            updateWebsite:'website/update',
+            getWebsiteByIdFormat:'website/get',
+            addPage:'head/add'
         }
     }
 }

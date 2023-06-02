@@ -72,7 +72,7 @@ const AddEditModal = ({ isOpen, onClose, onSave, rowData,onEditSave }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{isEditMode ? "Edit" : "Add"} Customer</ModalHeader>
+        <ModalHeader>{isEditMode ? "Edit" : "Add"} Website</ModalHeader>
         <ModalCloseButton />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>

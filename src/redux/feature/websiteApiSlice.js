@@ -3,28 +3,28 @@ import config from "../config/config";
 
 export const websiteApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // updateCustomer: builder.mutation({
-    //   query: (payload) => ({
-    //     url: `${config.api.url.updateCustomer}?id=${payload.id}`,
-    //     method: "PUT",
-    //     body: payload.editedData,
-    //   }),
-    //   invalidatesTags: ['Customers'],
-    // }),
-    // addCustomer: builder.mutation({
-    //   query: (payload) => ({
-    //     url: config.api.url.addCustomer,
-    //     method: "POST",
-    //     body: payload,
-    //   }),
-    //   invalidatesTags: ['Customers'], 
-    // }),
-    getCustomers: builder.query({
+    updateWebsite: builder.mutation({
+      query: (payload) => ({
+        url: `${config.api.url.updateWebsite}?id=${payload.id}`,
+        method: "PUT",
+        body: payload.editedData,
+      }),
+      invalidatesTags: ['WEBSITE'],
+    }),
+    addWebsite: builder.mutation({
+      query: (payload) => ({
+        url: config.api.url.addWebsite,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ['WEBSITE'], 
+    }),
+    getWebsite: builder.query({
       query: () => ({
-        url: config.api.url.getallCustomers,
+        url: config.api.url.getWebsite,
         method: "GET",
       }),
-      providesTags: ['Customers'], 
+      providesTags: ['WEBSITE'], 
     }),
     // getCustomerById: builder.mutation({
     //   query: (id) => ({
@@ -43,9 +43,9 @@ export const websiteApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-//   useAddCustomerMutation,
-  useGetCustomersQuery,
+  useAddWebsiteMutation,
+  useGetWebsiteQuery,
 //   useGetCustomerByIdMutation,
-//   useUpdateCustomerMutation,
+  useUpdateWebsiteMutation,
 //   useDeleteCustomerMutation,
 } = websiteApiSlice;

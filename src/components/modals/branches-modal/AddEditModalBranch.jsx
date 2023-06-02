@@ -17,12 +17,13 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData,onEditSave }) => {
+const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData, onEditSave }) => {
   const isEditMode = !!rowData;
   const [formData, setFormData] = useState({});
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
+    webPageUrl: Yup.string().required("Web Page URL is required"),
+    headTag: Yup.string().required("Head Tag is required"),
   });
 
   const {
@@ -48,39 +49,52 @@ const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData,onEditSave }) => 
     if (isOpen) {
       reset();
       if (isEditMode) {
-        setValue("name", rowData.name);
+        setValue("webPageUrl", rowData.webPageUrl);
+        setValue("headTag", rowData.headTag);
       }
     }
   }, [isOpen, isEditMode, rowData, reset, setValue]);
 
   const onSubmit = (data) => {
-    if(isEditMode)
-    {
-      onEditSave(data)
+    if (isEditMode) {
+      onEditSave(data);
+      onClose();
+      reset();
+    } else {
+      onSave(data);
       onClose();
       reset();
     }
-    else{
-      onSave(data);
-      onClose();
-      reset(); 
-    }
-   // Reset the form values
+    // Reset the form values
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{isEditMode ? "Edit" : "Add"} Branches</ModalHeader>
+        <ModalHeader>{isEditMode ? "Edit" : "Add"} Pages</ModalHeader>
         <ModalCloseButton />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>
-            <FormControl isInvalid={errors.name}>
-              <FormLabel>Name</FormLabel>
-              <Input type="text" name="name" {...register("name")} />
+            <FormControl isInvalid={errors.webPageUrl}>
+              <FormLabel>Web Page URL</FormLabel>
+              <Input type="text" name="webPageUrl" {...register("webPageUrl")} />
               <FormErrorMessage>
-                {errors.name && errors.name.message}
+                {errors.webPageUrl && errors.webPageUrl.message}
+              </FormErrorMessage>
+            </FormControl>
+            {/* <FormControl isInvalid={errors.website}>
+              <FormLabel>Website</FormLabel>
+              <Input type="text" name="website" {...register("website")} />
+              <FormErrorMessage>
+                {errors.website && errors.website.message}
+              </FormErrorMessage>
+            </FormControl> */}
+            <FormControl isInvalid={errors.headTag}>
+              <FormLabel>Head Tag</FormLabel>
+              <Input type="text" name="headTag" {...register("headTag")} />
+              <FormErrorMessage>
+                {errors.headTag && errors.headTag.message}
               </FormErrorMessage>
             </FormControl>
           </ModalBody>

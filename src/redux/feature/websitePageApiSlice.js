@@ -3,14 +3,14 @@ import config from "../config/config";
 
 export const websitePageApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // updateBranchById: builder.mutation({
-    //   query: (payload) => ({
-    //     url: `${config.api.url.updateBranch}?id=${payload.id}`,
-    //     method: "PUT",
-    //     body: payload.editedData,
-    //   }),
-    //   invalidatesTags: ['Branches'],
-    // }),
+    updateHeadById: builder.mutation({
+      query: (payload) => ({
+        url: `${config.api.url.updateHead}?id=${payload.id}`,
+        method: "PUT",
+        body: payload.editedData,
+      }),
+      invalidatesTags: ['WebsitePage'],
+    }),
     addPage: builder.mutation({
       query: (payload) => ({
         url: config.api.url.addPage,
@@ -40,5 +40,5 @@ export const {
   useAddPageMutation,
   useGetWebsiteByIdFormatQuery,
   // useDeleteBranchMutation,
-  // useUpdateBranchByIdMutation,
+  useUpdateHeadByIdMutation,
 } = websitePageApiSlice;

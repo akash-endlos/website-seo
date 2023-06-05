@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
 import AddEditModalBranch from "@/components/modals/branches-modal/AddEditModalBranch";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import DeleteModalBranch from "@/components/modals/branches-modal/DeleteModalBranch";
-import { useAddPageMutation, useGetWebsiteByIdFormatQuery } from "@/redux/feature/websitePageApiSlice";
+import { useAddPageMutation, useGetWebsiteByIdFormatQuery, useUpdateHeadByIdMutation } from "@/redux/feature/websitePageApiSlice";
 
 const index = () => {
   const router = useRouter()
@@ -37,13 +37,11 @@ const index = () => {
   const [addBranch] = useAddBranchMutation()
   const [addPage] = useAddPageMutation()
   const [updateBranchById] = useUpdateBranchByIdMutation()
+  const [updateHeadById] = useUpdateHeadByIdMutation()
   const [isAddEditModalOpen, setIsAddEditModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteBranch] = useDeleteBranchMutation()
-  console.log('====================================');
-  console.log(websitepages?.data.webWithPages);
-  console.log('====================================');
   useEffect(() => {
     if (id && websitepages) {
       setBranches(websitepages.data.webWithPages[0].heads);
@@ -77,7 +75,7 @@ const index = () => {
       id: selectedRow._id,
       editedData: data
     }
-    await updateBranchById(updatedData)
+    await updateHeadById(updatedData)
       .unwrap()
       .then(() => {
         console.log();

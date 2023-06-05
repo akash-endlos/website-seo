@@ -29,7 +29,8 @@ const config = {
             addWebsite:'website/add',
             updateWebsite:'website/update',
             getWebsiteByIdFormat:'website/get',
-            addPage:'head/add'
+            addPage:'head/add',
+            updateHead:'head/update',
         }
     }
 }

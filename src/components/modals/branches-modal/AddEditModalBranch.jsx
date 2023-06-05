@@ -12,6 +12,7 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
+  Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
@@ -92,7 +93,7 @@ const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData, onEditSave }) =>
             </FormControl> */}
             <FormControl isInvalid={errors.headTag}>
               <FormLabel>Head Tag</FormLabel>
-              <Input type="text" name="headTag" {...register("headTag")} />
+              <Textarea type="text" name="headTag" {...register("headTag")} />
               <FormErrorMessage>
                 {errors.headTag && errors.headTag.message}
               </FormErrorMessage>

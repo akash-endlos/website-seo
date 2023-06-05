@@ -33,7 +33,6 @@ const index = () => {
   const btnRef = React.useRef();
   const headers = ["webPageUrl",'headTag', "Action"];
   const [branches, setBranches] = useState([]);
-  const { data: myallbranches } = useGetBranchesByIdFormatQuery(id)
   const { data: websitepages,refetch } = useGetWebsiteByIdFormatQuery(id)
   const [addBranch] = useAddBranchMutation()
   const [addPage] = useAddPageMutation()
@@ -43,14 +42,14 @@ const index = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteBranch] = useDeleteBranchMutation()
   console.log('====================================');
-  console.log(websitepages?.data?.webWithPages[0]?.heads);
+  console.log(websitepages?.data.webWithPages);
   console.log('====================================');
   useEffect(() => {
-    if (websitepages) {
+    if (id && websitepages) {
       setBranches(websitepages.data.webWithPages[0].heads);
       refetch()
     }
-  }, [websitepages])
+  }, [id,websitepages])
 
   const handleAddEdit = (row) => {
     setSelectedRow(row);
@@ -167,11 +166,11 @@ const index = () => {
                 data={branches}
                 renderAction={renderAction}
               />
-              <DeleteModalBranch
+              {/* <DeleteModalBranch
                 isOpen={isDeleteModalOpen}
                 onClose={handleCancelDelete}
                 onConfirm={handleConfirmDelete}
-              />
+              /> */}
               <AddEditModalBranch
                 isOpen={isAddEditModalOpen}
                 onClose={handleCancelAddEdit}

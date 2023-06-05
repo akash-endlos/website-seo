@@ -27,14 +27,10 @@ const index = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [dataTable, setDataTable] = useState([]);
   const headers = ["name", "Action"];
-  const [addCustomer] = useAddCustomerMutation();
   const [addWebsite] = useAddWebsiteMutation();
-  const { data: customers } = useGetCustomersQuery();
   const { data: website,refetch } = useGetWebsiteQuery();
-  const [updateCustomer] = useUpdateCustomerMutation()
   const [updateWebsite] = useUpdateWebsiteMutation()
   const [deleteCustomer] = useDeleteCustomerMutation()
-  console.log(website);
   useEffect(() => {
    if(website)
    {

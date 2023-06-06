@@ -148,7 +148,7 @@ const index = () => {
             </DrawerHeader>
             <DrawerBody overflow="scroll">
               <Text color="teal" fontSize="3xl" className="font-bold px-5 py-5">
-                {webSiteName} Page
+                {webSiteName} Pages
               </Text>
               <Flex px={5} alignContent="center" justifyContent="space-between">
                 <Box>Search</Box>

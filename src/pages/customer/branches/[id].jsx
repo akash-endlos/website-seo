@@ -26,6 +26,7 @@ import AddEditModalBranch from "@/components/modals/branches-modal/AddEditModalB
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import DeleteModalBranch from "@/components/modals/branches-modal/DeleteModalBranch";
 import { useAddPageMutation, useGetWebsiteByIdFormatQuery, useUpdateHeadByIdMutation } from "@/redux/feature/websitePageApiSlice";
+import { toast } from "react-hot-toast";
 
 const index = () => {
   const router = useRouter()
@@ -48,7 +49,7 @@ const index = () => {
       refetch()
     }
   }, [id,websitepages])
-
+  const webSiteName = websitepages?.data?.webWithPages[0].name;
   const handleAddEdit = (row) => {
     setSelectedRow(row);
     setIsAddEditModalOpen(true);
@@ -62,11 +63,11 @@ const index = () => {
       await addPage({ ...data, website: id })
         .unwrap()
         .then(() => {
-          console.log();
+          setSelectedRow(null);
+          setIsAddEditModalOpen(false);
         })
         .catch((error) => {
-          console.log(error);
-
+          toast.error(error.data.error)
         });
     }
   };
@@ -78,10 +79,11 @@ const index = () => {
     await updateHeadById(updatedData)
       .unwrap()
       .then(() => {
-        console.log();
+        setSelectedRow(null);
+    setIsAddEditModalOpen(false);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.data.error)
 
       });
   }
@@ -146,7 +148,7 @@ const index = () => {
             </DrawerHeader>
             <DrawerBody overflow="scroll">
               <Text color="teal" fontSize="3xl" className="font-bold px-5 py-5">
-                Website PageDetail
+                {webSiteName} Page
               </Text>
               <Flex px={5} alignContent="center" justifyContent="space-between">
                 <Box>Search</Box>
@@ -155,7 +157,7 @@ const index = () => {
                     colorScheme="teal"
                     onClick={() => setIsAddEditModalOpen(true)}
                   >
-                    Add Website PageDetail
+                    Add Page
                   </Button>
                 </Box>
               </Flex>

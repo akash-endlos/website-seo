@@ -18,6 +18,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import AddEditModal from "@/components/modals/customer-modal/AddEditModalCustomer";
 import { useRouter } from "next/router";
 import { useAddWebsiteMutation, useGetWebsiteQuery, useUpdateWebsiteMutation } from "@/redux/feature/websiteApiSlice";
+import { toast } from "react-hot-toast";
 
 const index = () => {
   const router = useRouter()
@@ -72,7 +73,7 @@ const index = () => {
       setaddTutorialData({ name: ""});
     })
     .catch((error) => {
-    console.log(error);
+      toast.error(error.data.error)
 
     });
   };

@@ -1,65 +1,62 @@
 import { useState } from 'react';
-import { Tbody, Td, Tr, Button } from "@chakra-ui/react";
+import { Tbody, Td, Tr, Button, Text } from "@chakra-ui/react";
 
 const TableBody = ({ headerNames, paginatedData, renderAction }) => {
   const [expandedRows, setExpandedRows] = useState([]);
 
   const toggleRowExpansion = (rowIndex) => {
-    setExpandedRows((prevState) => {
-      if (prevState.includes(rowIndex)) {
-        return prevState.filter((row) => row !== rowIndex);
+    setExpandedRows((prevExpandedRows) => {
+      const updatedExpandedRows = [...prevExpandedRows];
+      if (updatedExpandedRows.includes(rowIndex)) {
+        // Row is already expanded, so collapse it
+        const indexToRemove = updatedExpandedRows.indexOf(rowIndex);
+        updatedExpandedRows.splice(indexToRemove, 1);
       } else {
-        return [...prevState, rowIndex];
+        // Row is not expanded, so expand it
+        updatedExpandedRows.push(rowIndex);
       }
+      return updatedExpandedRows;
     });
-  };
-
-  const isRowExpanded = (rowIndex) => {
-    return expandedRows.includes(rowIndex);
   };
 
   return (
     <Tbody>
-      {paginatedData.map((row, rowIndex) => (
-        <Tr key={rowIndex}>
-          {headerNames.map((header, colIndex) => {
-            if (header === 'Action') {
-              return <Td key={colIndex}>{renderAction(row)}</Td>;
-            }
-            if (header === 'headTag') {
-              return (
-                <Td className="card" key={colIndex}>
-                  <div>
-                  <div className='flex flex-col'>
-                      {`${row[header].slice(0, 50)}...`}
-                      {row[header].length > 50 && !isRowExpanded(rowIndex) && (
-                        <Button
-                          size="sm"
-                          onClick={() => toggleRowExpansion(rowIndex)}
-                        >
-                          Show More
-                        </Button>
-                      )}
-                    </div>
-                    {isRowExpanded(rowIndex) && (
+      {paginatedData.map((row, rowIndex) => {
+        const isExpanded = expandedRows.includes(rowIndex);
+
+        return (
+          <Tr key={rowIndex}>
+            {headerNames.map((header, colIndex) => {
+              if (header === 'Action') {
+                return <Td key={colIndex}>{renderAction(row)}</Td>;
+              }
+              if (header === 'headTag') {
+                const rowData = row[header];
+              const shouldShowButton = rowData.length > 100;
+              const displayedText = shouldShowButton ? (isExpanded ? rowData : rowData.slice(0, 100) + '...') : rowData;
+
+                return (
+                  <Td className="card" key={colIndex}>
+                    <div>
                       <div className='flex flex-col'>
-                        {row[header]}
-                        <Button
-                          size="sm"
-                          onClick={() => toggleRowExpansion(rowIndex)}
-                        >
-                          Show Less
-                        </Button>
+                        <Text>{displayedText}</Text>
+                        {shouldShowButton && (
+                          <div>
+                            <Button onClick={() => toggleRowExpansion(rowIndex)}>
+                              {isExpanded ? 'Read less' : 'Read more'}
+                            </Button>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                </Td>
-              );
-            }
-            return <Td key={colIndex}>{row[header]}</Td>;
-          })}
-        </Tr>
-      ))}
+                    </div>
+                  </Td>
+                );
+              }
+              return <Td key={colIndex}>{row[header]}</Td>;
+            })}
+          </Tr>
+        );
+      })}
     </Tbody>
   );
 };

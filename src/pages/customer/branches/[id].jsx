@@ -32,9 +32,10 @@ const index = () => {
   const router = useRouter()
   const id = router?.query?.id
   const btnRef = React.useRef();
-  const headers = ["webPageUrl",'headTag', "Action"];
+  const headers = ['webPageUrl',"title","description","keywords","ogTitle","ogDescription","ogImageUrl","twitterTitle","twitterDescription","twitterImage", "Action"];
   const [branches, setBranches] = useState([]);
   const { data: websitepages,refetch } = useGetWebsiteByIdFormatQuery(id)
+
   const [addBranch] = useAddBranchMutation()
   const [addPage] = useAddPageMutation()
   const [updateBranchById] = useUpdateBranchByIdMutation()
@@ -44,7 +45,8 @@ const index = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteBranch] = useDeleteBranchMutation()
   useEffect(() => {
-    if (id && websitepages) {
+    if (id && websitepages.data.webWithPages[0].heads) {
+      console.log(websitepages.data.webWithPages[0].heads);
       setBranches(websitepages.data.webWithPages[0].heads);
       refetch()
     }

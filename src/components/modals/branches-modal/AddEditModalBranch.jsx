@@ -13,6 +13,7 @@ import {
   Input,
   FormErrorMessage,
   Textarea,
+  Flex,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
@@ -24,7 +25,15 @@ const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData, onEditSave }) =>
 
   const validationSchema = Yup.object().shape({
     webPageUrl: Yup.string().required("Web Page URL is required"),
-    headTag: Yup.string().required("Head Tag is required"),
+    title: Yup.string().required("Title is required"),
+    description: Yup.string().required("Description is required"),
+    keywords: Yup.string().required("Keywords are required"),
+    ogTitle: Yup.string().required("Open Graph Title is required"),
+    ogDescription: Yup.string().required("Open Graph Description is required"),
+    ogImageUrl: Yup.string().required("Open Graph Image URL is required"),
+    twitterTitle: Yup.string().required("Twitter Title is required"),
+    twitterDescription: Yup.string().required("Twitter Description is required"),
+    twitterImage: Yup.string().required("Twitter Image URL is required"),
   });
 
   const {
@@ -51,7 +60,15 @@ const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData, onEditSave }) =>
       reset();
       if (isEditMode) {
         setValue("webPageUrl", rowData.webPageUrl);
-        setValue("headTag", rowData.headTag);
+        setValue("title", rowData.title);
+        setValue("description", rowData.description);
+        setValue("keywords", rowData.keywords);
+        setValue("ogTitle", rowData.ogTitle);
+        setValue("ogDescription", rowData.ogDescription);
+        setValue("ogImageUrl", rowData.ogImageUrl);
+        setValue("twitterTitle", rowData.twitterTitle);
+        setValue("twitterDescription", rowData.twitterDescription);
+        setValue("twitterImage", rowData.twitterImage);
       }
     }
   }, [isOpen, isEditMode, rowData, reset, setValue]);
@@ -66,38 +83,104 @@ const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData, onEditSave }) =>
       onClose();
       reset();
     }
-    // Reset the form values
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal size='5xl' isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{isEditMode ? "Edit" : "Add"} Pages</ModalHeader>
         <ModalCloseButton />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>
-            <FormControl isInvalid={errors.webPageUrl}>
-              <FormLabel>Web Page URL</FormLabel>
-              <Input type="text" name="webPageUrl" {...register("webPageUrl")} />
-              <FormErrorMessage>
-                {errors.webPageUrl && errors.webPageUrl.message}
-              </FormErrorMessage>
-            </FormControl>
-            {/* <FormControl isInvalid={errors.website}>
-              <FormLabel>Website</FormLabel>
-              <Input type="text" name="website" {...register("website")} />
-              <FormErrorMessage>
-                {errors.website && errors.website.message}
-              </FormErrorMessage>
-            </FormControl> */}
-            <FormControl isInvalid={errors.headTag}>
-              <FormLabel>Head Tag</FormLabel>
-              <Textarea type="text" name="headTag" {...register("headTag")} />
-              <FormErrorMessage>
-                {errors.headTag && errors.headTag.message}
-              </FormErrorMessage>
-            </FormControl>
+            <Flex direction="row">
+              <FormControl isInvalid={errors.webPageUrl} flex="1" marginRight="2">
+                <FormLabel>Web Page URL</FormLabel>
+                <Input type="text" name="webPageUrl" {...register("webPageUrl")} />
+                <FormErrorMessage>
+                  {errors.webPageUrl && errors.webPageUrl.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={errors.title} flex="1" marginLeft="2">
+                <FormLabel>Title</FormLabel>
+                <Input type="text" name="title" {...register("title")} />
+                <FormErrorMessage>
+                  {errors.title && errors.title.message}
+                </FormErrorMessage>
+              </FormControl>
+            </Flex>
+            <Flex direction="row">
+              <FormControl isInvalid={errors.description} flex="1" marginRight="2">
+                <FormLabel>Description</FormLabel>
+                <Textarea type="text" name="description" {...register("description")} />
+                <FormErrorMessage>
+                  {errors.description && errors.description.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={errors.keywords} flex="1" marginLeft="2">
+                <FormLabel>Keywords</FormLabel>
+                <Input type="text" name="keywords" {...register("keywords")} />
+                <FormErrorMessage>
+                  {errors.keywords && errors.keywords.message}
+                </FormErrorMessage>
+              </FormControl>
+            </Flex>
+            <Flex direction="row">
+              <FormControl isInvalid={errors.ogTitle} flex="1" marginRight="2">
+                <FormLabel>Open Graph Title</FormLabel>
+                <Input type="text" name="ogTitle" {...register("ogTitle")} />
+                <FormErrorMessage>
+                  {errors.ogTitle && errors.ogTitle.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={errors.ogDescription} flex="1" marginLeft="2">
+                <FormLabel>Open Graph Description</FormLabel>
+                <Textarea
+                  type="text"
+                  name="ogDescription"
+                  {...register("ogDescription")}
+                />
+                <FormErrorMessage>
+                  {errors.ogDescription && errors.ogDescription.message}
+                </FormErrorMessage>
+              </FormControl>
+            </Flex>
+            <Flex direction="row">
+              <FormControl isInvalid={errors.ogImageUrl} flex="1" marginRight="2">
+                <FormLabel>Open Graph Image URL</FormLabel>
+                <Input type="text" name="ogImageUrl" {...register("ogImageUrl")} />
+                <FormErrorMessage>
+                  {errors.ogImageUrl && errors.ogImageUrl.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={errors.twitterTitle} flex="1" marginLeft="2">
+                <FormLabel>Twitter Title</FormLabel>
+                <Input type="text" name="twitterTitle" {...register("twitterTitle")} />
+                <FormErrorMessage>
+                  {errors.twitterTitle && errors.twitterTitle.message}
+                </FormErrorMessage>
+              </FormControl>
+            </Flex>
+            <Flex direction="row">
+              <FormControl isInvalid={errors.twitterDescription} flex="1" marginRight="2">
+                <FormLabel>Twitter Description</FormLabel>
+                <Textarea
+                  type="text"
+                  name="twitterDescription"
+                  {...register("twitterDescription")}
+                />
+                <FormErrorMessage>
+                  {errors.twitterDescription && errors.twitterDescription.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={errors.twitterImage} flex="1" marginLeft="2">
+                <FormLabel>Twitter Image URL</FormLabel>
+                <Input type="text" name="twitterImage" {...register("twitterImage")} />
+                <FormErrorMessage>
+                  {errors.twitterImage && errors.twitterImage.message}
+                </FormErrorMessage>
+              </FormControl>
+            </Flex>
           </ModalBody>
           <ModalFooter>
             <Button variant="ghost" onClick={onClose}>
@@ -113,4 +196,4 @@ const AddEditModalBranch = ({ isOpen, onClose, onSave, rowData, onEditSave }) =>
   );
 };
 
-export default AddEditModalBranch;
+export default AddEditModalBranch

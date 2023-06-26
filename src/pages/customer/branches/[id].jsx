@@ -45,9 +45,9 @@ const index = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteBranch] = useDeleteBranchMutation()
   useEffect(() => {
-    if (id && websitepages.data.webWithPages[0].heads) {
-      console.log(websitepages.data.webWithPages[0].heads);
-      setBranches(websitepages.data.webWithPages[0].heads);
+    if (id && websitepages?.data?.webWithPages[0]?.heads) {
+      console.log(websitepages?.data?.webWithPages[0]?.heads);
+      setBranches(websitepages?.data?.webWithPages[0]?.heads);
       refetch()
     }
   }, [id,websitepages])
@@ -69,7 +69,7 @@ const index = () => {
           setIsAddEditModalOpen(false);
         })
         .catch((error) => {
-          toast.error(error.data.error)
+          toast.error(error?.data?.error)
         });
     }
   };

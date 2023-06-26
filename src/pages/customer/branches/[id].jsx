@@ -46,7 +46,6 @@ const index = () => {
   const [deleteBranch] = useDeleteBranchMutation()
   useEffect(() => {
     if (id && websitepages?.data?.webWithPages[0]?.heads) {
-      console.log(websitepages?.data?.webWithPages[0]?.heads);
       setBranches(websitepages?.data?.webWithPages[0]?.heads);
       refetch()
     }
